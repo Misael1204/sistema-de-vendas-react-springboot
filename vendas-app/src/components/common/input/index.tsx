@@ -1,33 +1,51 @@
-import { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes } from "react";
+import { formatReal } from "app/util/money";
 
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>{
-    id: string,
-    onChange?: (value: string) => void;
-    label: string;
-    columnClasses?: string;
+interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+  id: string;
+  onChange?: (value: string) => void;
+  label: string;
+  columnClasses?: string;
+  currency?: boolean;
+  value?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
-    onChange,
-    label,
-    columnClasses,
-    id,
-    ... inputProps
-}: InputProps) => {
-    return (
-        <div className={`field column ${columnClasses}`}>
-            <label className='label' htmlFor={id}>{label}</label>
-                <div className='control'>
-                    <input className="input" 
-                        id={id} {...inputProps} 
-                        onChange={ e => {
-                            if(onChange){
-                                onChange(e.target.value)
-                            }
-                        }}
-                    />
-                </div>
-        </div>
+  onChange,
+  label,
+  columnClasses = '',
+  id,
+  currency = false,
+  value,
+  ...inputProps
+}) => {
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let newValue = event.target.value;
 
-    )
-}
+    if (currency) {
+      newValue = formatReal(newValue);
+    }
+
+    if (onChange) {
+      onChange(newValue);
+    }
+  };
+
+  return (
+    <div className={`field column ${columnClasses}`}>
+      <label className="label" htmlFor={id}>
+        {label}
+      </label>
+      <div className="control">
+        <input
+          className="input"
+          id={id}
+          {...inputProps}
+          value={value}
+          onChange={onInputChange}
+        />
+      </div>
+    </div>
+  );
+};
