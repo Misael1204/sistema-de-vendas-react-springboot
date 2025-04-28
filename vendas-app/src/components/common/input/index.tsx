@@ -9,6 +9,8 @@ interface InputProps
   columnClasses?: string;
   currency?: boolean;
   value?: string;
+  error?: string;
+  
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -18,6 +20,7 @@ export const Input: React.FC<InputProps> = ({
   id,
   currency = false,
   value,
+  error,
   ...inputProps
 }) => {
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +48,9 @@ export const Input: React.FC<InputProps> = ({
           value={value}
           onChange={onInputChange}
         />
+        {error && ( 
+            <p className="help is-danger">{error}</p>
+          )}
       </div>
     </div>
   );
