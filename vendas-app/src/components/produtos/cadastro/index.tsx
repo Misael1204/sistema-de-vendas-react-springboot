@@ -127,7 +127,7 @@ export const CadastroProdutos: React.FC = () => {
             <div className='columns'>
                 <Input label='SKU: *' 
                        columnClasses='is-half' 
-                       onChange={setSku}
+                       onChange ={ e => setSku(e.target.value)}
                        value={sku} 
                        id='inputSku'
                        placeholder='Digite o SKU do produto'
@@ -136,17 +136,16 @@ export const CadastroProdutos: React.FC = () => {
                 <Input label='Preço: *' 
                        columnClasses='is-half'
                        value={preco} 
-                       onChange={setPreco} 
+                       onChange={ e => setPreco(e.target.value)} 
                        id='inputPreco'
                        placeholder='Digite o preço do produto'
-                       currency = {true}
                        maxLength={16}
                        error={errors.preco}/>
             </div>
             <div className='columns'>
                 <Input label='Nome: *' 
                         columnClasses='is-full' 
-                        onChange={setNome} 
+                        onChange={e => setNome(e.target.value)} 
                         id='inputNome'
                         value={nome}
                         placeholder='Digite o nome do produto'

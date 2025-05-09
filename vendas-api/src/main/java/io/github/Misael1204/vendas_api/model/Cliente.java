@@ -1,5 +1,6 @@
 package io.github.Misael1204.vendas_api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,14 +12,15 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate nascimento;
     private String cpf;
     private String nome;
     private String endereco;
     private String telefone;
     private String email;
-
     @Column(name = "data_cadastro")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 
     public Cliente () {
@@ -43,6 +45,10 @@ public class Cliente {
         this.email = email;
         this.telefone = telefone;
         this.endereco = endereco;
+    }
+    @PrePersist
+    public void prePersist() {
+        setDataCadastro(LocalDate.now());
     }
 
     public Long getId() {

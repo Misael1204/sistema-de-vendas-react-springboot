@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@4us-dev/utils": "^0.0.15",
     "axios": "^1.9.0",
     "bulma": "0.9.2",
+    "formik": "^2.4.6",
     "next": "15.3.1",
+    "primeicons": "^7.0.0",
+    "primereact": "9.6.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "swr": "^2.3.3",
